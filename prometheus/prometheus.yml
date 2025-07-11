@@ -1,0 +1,28 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Grafana
+  - job_name: "grafana"
+    static_configs:
+      - targets: ["grafana:3000"]
+
+  # Loki
+  - job_name: "loki"
+    static_configs:
+      - targets: ["loki:3100"]
+
+  # Add your application metrics here
+  # - job_name: 'your-app'
+  #   static_configs:
+  #     - targets: ['your-app:port']
