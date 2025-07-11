@@ -25,6 +25,7 @@ start: ## Start the monitoring stack
 	@echo "  - Grafana: http://localhost:3000 (admin/admin)"
 	@echo "  - Prometheus: http://localhost:9090"
 	@echo "  - Loki: http://localhost:3100"
+	@echo "  - Tempo: http://localhost:3200"
 
 stop: ## Stop the monitoring stack
 	@echo "$(YELLOW)Stopping Grafana monitoring stack...$(NC)"
@@ -51,6 +52,9 @@ logs-loki: ## View Loki logs
 logs-promtail: ## View Promtail logs
 	docker-compose logs -f promtail
 
+logs-tempo: ## View Tempo logs
+	docker-compose logs -f tempo
+
 status: ## Show service status
 	@echo "$(GREEN)Service Status:$(NC)"
 	docker-compose ps
@@ -63,6 +67,8 @@ health: ## Check health of all services
 	@curl -s -o /dev/null -w "  Status: %{http_code}\n" http://localhost:9090/-/healthy || echo "  Status: Not responding"
 	@echo "Loki:"
 	@curl -s -o /dev/null -w "  Status: %{http_code}\n" http://localhost:3100/ready || echo "  Status: Not responding"
+	@echo "Tempo:"
+	@curl -s -o /dev/null -w "  Status: %{http_code}\n" http://localhost:3200/ready || echo "  Status: Not responding"
 
 build: ## Build/rebuild the stack
 	@echo "$(GREEN)Building monitoring stack...$(NC)"

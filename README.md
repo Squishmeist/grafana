@@ -6,6 +6,7 @@ Docker Compose setup for full-featured monitoring & logging:
 - 📈 Prometheus ([Port 9090](http://localhost:9090)) – Metrics collection
 - 📜 Loki ([Port 3100](http://localhost:3100)) – Log aggregation
 - 🚚 Promtail – Log shipping agent
+- 🔍 Tempo ([Port 3200](http://localhost:3200)) – Distributed tracing
 
 ## ⚡ Quick Start
 
@@ -30,8 +31,10 @@ make start
 │   └── prometheus.yml
 ├── loki/
 │   └── loki-config.yml
-└── promtail/
-    └── promtail-config.yml
+├── promtail/
+│   └── promtail-config.yml
+└── tempo/
+    └── tempo-config.yml
 ```
 
 ## 🛠️ Managing the Stack
@@ -55,6 +58,7 @@ make logs-grafana
 make logs-prometheus
 make logs-loki
 make logs-promtail
+make logs-tempo
 ```
 
 ## 💾 Data Persistence

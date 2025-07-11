@@ -65,6 +65,27 @@ services:
     depends_on:
       - loki
 
+  # Tempo - Distributed tracing
+  tempo:
+    image: grafana/tempo:latest
+    container_name: tempo
+    ports:
+      - "3200:3200" # Tempo HTTP
+      - "9095:9095" # Tempo gRPC
+      - "4317:4317" # OTLP gRPC
+      - "4318:4318" # OTLP HTTP
+      - "9411:9411" # Zipkin
+      - "14268:14268" # Jaeger HTTP
+      - "14250:14250" # Jaeger gRPC
+    volumes:
+      - ./tempo/tempo-config.yml:/etc/tempo/tempo.yml
+      - tempo-storage:/var/tempo
+    command:
+      - "--config.file=/etc/tempo/tempo.yml"
+    networks:
+      - monitoring
+    restart: unless-stopped
+
 networks:
   monitoring:
     driver: bridge
@@ -73,3 +94,4 @@ volumes:
   grafana-storage:
   prometheus-storage:
   loki-storage:
+  tempo-storage:
